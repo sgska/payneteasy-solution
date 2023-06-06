@@ -3,18 +3,16 @@ package org.payneteasy.solution.web.controller;
 import org.payneteasy.solution.web.entity.RequestEntity;
 import org.payneteasy.solution.web.entity.ResponseEntity;
 
-public class DownloadController extends AbstractFilesController {
-
+public class FilesController extends AbstractFilesController {
 
     @Override
     public ResponseEntity processGet(RequestEntity request) {
-
-
-        return new ResponseEntity(request.getRequestPart());
+        return super.processGet(request);
     }
 
     @Override
     public String getPath() {
-        return "/download/";
+        return "/files";
     }
+
 }

@@ -10,4 +10,8 @@ public class ResponseEntity {
     private int httpStatus;
     private String body;
 
+    public ResponseEntity(String body) {
+        this.httpStatus = 200;
+        this.body = body;
+    }
 }

@@ -1,13 +1,17 @@
 package org.payneteasy.solution.storage;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 public interface FileStorage {
 
 
-    void save(Path filePath, byte[] data);
+    void save(Path filePath, byte[] data) throws IOException;
 
-    byte[] read(Path filePath);
+    byte[] read(Path filePath) throws IOException;
 
-    void delete(Path filePath);
+    List<Path> getFiles(Path filePath) throws IOException;
+
+    void delete(Path filePath) throws IOException;
 }

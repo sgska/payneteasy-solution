@@ -1,12 +1,16 @@
 package org.payneteasy.solution;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.payneteasy.solution.context.ApplicationContext;
 import org.payneteasy.solution.context.configuration.ApplicationContextConfiguration;
 import org.payneteasy.solution.context.type.BeanLoadType;
+import org.payneteasy.solution.service.FileService;
 import org.payneteasy.solution.storage.FileStorage;
 import org.payneteasy.solution.web.HttpServer;
 import org.payneteasy.solution.web.configuration.HttpServerConfiguration;
+import org.payneteasy.solution.web.configuration.ValidationConfiguration;
+import org.payneteasy.solution.web.validation.FileValidator;
 
 public class Application {
 
@@ -16,10 +20,14 @@ public class Application {
                 // init app beans
                 .addBean(BeanLoadType.SPI_LOADER, FileStorage.class)
                 .addBean(HttpServerConfiguration.class)
+                .addBean(FileService.class)
 
                 //init web app and server beans
                 .webApp(true)
                 .addBean(HttpServer.class)
+                .addBean(ObjectMapper.class)
+                .addBean(FileValidator.class)
+                .addBean(ValidationConfiguration.class)
 
                 .build();
 

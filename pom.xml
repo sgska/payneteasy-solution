@@ -15,6 +15,8 @@
         <jetty-server.version>9.4.48.v20220622</jetty-server.version>
         <lombok.version>1.18.28</lombok.version>
         <slf4j-api.version>2.0.7</slf4j-api.version>
+        <jackson.version>2.12.7.1</jackson.version>
+
     </properties>
 
     <dependencies>
@@ -32,11 +34,16 @@
         </dependency>
 
         <!-- Utils -->
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
     </dependencies>
