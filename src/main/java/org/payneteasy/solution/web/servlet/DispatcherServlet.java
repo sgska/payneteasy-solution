@@ -6,6 +6,7 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.util.ByteArrayOutputStream2;
 import org.eclipse.jetty.util.IO;
 import org.payneteasy.solution.web.controller.DownloadController;
+import org.payneteasy.solution.web.controller.FilesController;
 import org.payneteasy.solution.web.controller.HttpController;
 import org.payneteasy.solution.web.controller.UploadController;
 import org.payneteasy.solution.web.entity.RequestEntity;
@@ -31,9 +32,11 @@ public class DispatcherServlet extends HttpServlet {
 
         var downloadController = new DownloadController();
         var uploadController = new UploadController();
+        var filesController = new FilesController();
 
         this.CONTROLLERS_MAP.put(downloadController.getPath(), downloadController);
         this.CONTROLLERS_MAP.put(uploadController.getPath(), uploadController);
+        this.CONTROLLERS_MAP.put(filesController.getPath(), filesController);
     }
 
     @Override

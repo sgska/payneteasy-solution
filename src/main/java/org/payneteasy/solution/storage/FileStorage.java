@@ -2,7 +2,7 @@ package org.payneteasy.solution.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.Map;
 
 public interface FileStorage {
 
@@ -11,7 +11,7 @@ public interface FileStorage {
 
     byte[] read(Path filePath) throws IOException;
 
-    List<Path> getFiles(Path filePath) throws IOException;
+    Map<Path, Long> getFiles(Path filePath) throws IOException;
 
     void delete(Path filePath) throws IOException;
 }

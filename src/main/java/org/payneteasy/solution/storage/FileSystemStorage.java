@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FileSystemStorage implements FileStorage {
 
@@ -22,8 +22,8 @@ public class FileSystemStorage implements FileStorage {
     }
 
     @Override
-    public List<Path> getFiles(Path filePath) throws IOException {
-        List<Path> result = new ArrayList<>();
+    public Map<Path, Long> getFiles(Path filePath) throws IOException {
+        Map<Path, Long> result = new HashMap<>();
         File folder = filePath.toFile();
 
         if (!folder.exists() || !folder.isDirectory()) {
@@ -41,13 +41,13 @@ public class FileSystemStorage implements FileStorage {
         Files.deleteIfExists(filePath);
     }
 
-    private static void scanFolder(File folder, List<Path> filePaths) {
+    private static void scanFolder(File folder, Map<Path, Long> filePaths) {
         File[] files = folder.listFiles();
 
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    filePaths.add(file.toPath());
+                    filePaths.put(file.toPath(), file.length());
                 } else if (file.isDirectory()) {
                     scanFolder(file, filePaths);
                 }

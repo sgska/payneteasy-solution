@@ -1,10 +1,12 @@
 package org.payneteasy.solution.service;
 
 import org.payneteasy.solution.context.ApplicationContext;
+import org.payneteasy.solution.model.FileInfo;
 import org.payneteasy.solution.storage.FileStorage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 
 public class FileService {
@@ -32,12 +34,24 @@ public class FileService {
 
     public void saveFile(String generatedId, String filename, byte[] fileBytes) throws IOException {
         var dirPath = Path.of(STORAGE_DIR.toString(), generatedId);
-        boolean mkdirs = dirPath.toFile().mkdirs();
+        dirPath.toFile().mkdirs();
 
         var fullPath = Path.of(STORAGE_DIR.toString(), generatedId, filename);
         System.out.println("full path: " + fullPath);
 
         getFileStorage().save(fullPath, fileBytes);
+    }
+
+    public List<FileInfo> getFilesInfo() throws IOException {
+        return getFileStorage().getFiles(STORAGE_DIR).entrySet().stream()
+                .map(entry -> {
+                    Path path = entry.getKey();
+                    long fileSizeKb = entry.getValue() / 1024;
+                    var parent = path.getParent().getFileName();
+
+                    return new FileInfo(parent.toString(), fileSizeKb, path.getFileName().toString());
+                })
+                .toList();
     }
 
 
