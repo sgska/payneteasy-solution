@@ -1,11 +1,12 @@
-package org.payneteasy.solution.server.http;
+package org.payneteasy.solution.web.server;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.DefaultHandler;
+import org.eclipse.jetty.servlet.ServletHandler;
 import org.payneteasy.solution.context.ApplicationContext;
 import org.payneteasy.solution.context.exception.HttpServerStartException;
-import org.payneteasy.solution.server.HttpServer;
-import org.payneteasy.solution.server.configuration.HttpServerConfiguration;
+import org.payneteasy.solution.web.HttpServer;
+import org.payneteasy.solution.web.configuration.HttpServerConfiguration;
+import org.payneteasy.solution.web.servlet.DispatcherServlet;
 
 import java.util.Objects;
 
@@ -22,11 +23,10 @@ public class JettyServer implements HttpServer {
         if (Objects.isNull(server)) {
             server = new Server(getConfiguration().getPort());
 
-//        ServletHandler servletHandler = new ServletHandler();
+            ServletHandler servletHandler = new ServletHandler();
+            servletHandler.addServletWithMapping(DispatcherServlet.class, "/*");
 
-//        servletHandler.addServletWithMapping(GetHttpServlet.class, "/");
-
-            server.setHandler(new DefaultHandler());
+            server.setHandler(servletHandler);
         }
 
         return server;

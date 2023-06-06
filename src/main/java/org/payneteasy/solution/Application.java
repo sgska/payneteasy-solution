@@ -4,9 +4,9 @@ package org.payneteasy.solution;
 import org.payneteasy.solution.context.ApplicationContext;
 import org.payneteasy.solution.context.configuration.ApplicationContextConfiguration;
 import org.payneteasy.solution.context.type.BeanLoadType;
-import org.payneteasy.solution.server.HttpServer;
-import org.payneteasy.solution.server.configuration.HttpServerConfiguration;
 import org.payneteasy.solution.storage.FileStorage;
+import org.payneteasy.solution.web.HttpServer;
+import org.payneteasy.solution.web.configuration.HttpServerConfiguration;
 
 public class Application {
 

@@ -1,4 +1,4 @@
-package org.payneteasy.solution.server;
+package org.payneteasy.solution.web.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

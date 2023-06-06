@@ -3,7 +3,7 @@ package org.payneteasy.solution.context;
 import org.payneteasy.solution.context.configuration.ApplicationContextConfiguration;
 import org.payneteasy.solution.context.container.BeanContainer;
 import org.payneteasy.solution.context.loader.BeanLoaderFactory;
-import org.payneteasy.solution.server.HttpServer;
+import org.payneteasy.solution.web.HttpServer;
 
 public class ApplicationContext {
 
@@ -22,7 +22,7 @@ public class ApplicationContext {
             server.start();
         }
 
-        System.out.println("1");
+        System.out.println("Started.");
 
     }
 

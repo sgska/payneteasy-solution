@@ -1,4 +1,4 @@
-package org.payneteasy.solution.server.configuration;
+package org.payneteasy.solution.web.configuration;
 
 import lombok.Getter;
 import org.payneteasy.solution.context.properties.ApplicationPropertiesReader;

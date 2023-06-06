@@ -1,4 +1,4 @@
-package org.payneteasy.solution.server;
+package org.payneteasy.solution.web;
 
 public interface HttpServer {
 
