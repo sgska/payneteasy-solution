@@ -7,6 +7,7 @@ import org.payneteasy.solution.context.ApplicationContext;
 import org.payneteasy.solution.context.configuration.ApplicationContextConfiguration;
 import org.payneteasy.solution.context.type.BeanLoadType;
 import org.payneteasy.solution.service.FileService;
+import org.payneteasy.solution.service.PageService;
 import org.payneteasy.solution.storage.FileStorage;
 import org.payneteasy.solution.web.HttpServer;
 import org.payneteasy.solution.web.configuration.HttpServerConfiguration;
@@ -32,6 +33,7 @@ public class Application {
                 .addBean(HttpServer.class)
                 .addBean(ObjectMapper.class)
                 .addBean(FileValidator.class)
+                .addBean(PageService.class)
 
                 .build();
 
