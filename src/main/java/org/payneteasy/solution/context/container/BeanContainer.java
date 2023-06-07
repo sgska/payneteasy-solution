@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BeanContainer {
-    private Map<Class<?>, Object> beanMap;
+    private final Map<Class<?>, Object> beanMap;
 
     public BeanContainer() {
         this.beanMap = new ConcurrentHashMap<>();

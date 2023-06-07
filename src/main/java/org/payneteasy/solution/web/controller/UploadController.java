@@ -25,9 +25,9 @@ public class UploadController extends AbstractFilesController {
     public ResponseEntity processPost(RequestEntity request) {
         var fileEntry = request.getFiles().entrySet().iterator().next();
 
-        List<String> validate = getValidator().validate(fileEntry);
-        if (!validate.isEmpty()) {
-            return new ResponseEntity(400, toJson(validate));
+        List<String> validateResult = getValidator().validate(fileEntry);
+        if (!validateResult.isEmpty()) {
+            return new ResponseEntity(400, toJson(validateResult));
         }
 
         var filename = fileEntry.getKey();

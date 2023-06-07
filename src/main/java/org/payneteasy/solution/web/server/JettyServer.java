@@ -42,4 +42,12 @@ public class JettyServer implements HttpServer {
         }
     }
 
+    @Override
+    public void stop() {
+        try {
+            getServer().stop();
+        } catch (Exception e) {
+            //ignored
+        }
+    }
 }

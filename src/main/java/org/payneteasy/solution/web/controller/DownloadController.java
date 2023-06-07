@@ -1,17 +1,33 @@
 package org.payneteasy.solution.web.controller;
 
+import org.payneteasy.solution.context.ApplicationContext;
 import org.payneteasy.solution.model.FileInfo;
 import org.payneteasy.solution.web.entity.RequestEntity;
 import org.payneteasy.solution.web.entity.ResponseEntity;
+import org.payneteasy.solution.web.validation.FileValidator;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class DownloadController extends AbstractFilesController {
 
+    private FileValidator validator;
+    private FileValidator getValidator() {
+        if (Objects.isNull(validator)) {
+            validator = ApplicationContext.getBean(FileValidator.class);
+        }
+        return validator;
+    }
 
     @Override
     public ResponseEntity processGet(RequestEntity request) {
         var fileId = request.getRequestPart();
+
+        List<String> validateResult = getValidator().validateFileId(fileId);
+        if (!validateResult.isEmpty()) {
+            return new ResponseEntity(400, toJson(validateResult));
+        }
 
         Optional<FileInfo> fileInfoOpt;
         try {

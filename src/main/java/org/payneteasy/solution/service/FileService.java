@@ -15,8 +15,8 @@ import java.util.Optional;
 
 public class FileService {
 
-    protected String storageDir;
-    private String getStorageDir() {
+    private String storageDir;
+    public String getStorageDir() {
         if (Objects.isNull(storageDir)) {
             try {
                 var configuration = ApplicationContext.getBean(ApplicationFileConfiguration.class);
@@ -59,7 +59,7 @@ public class FileService {
 
 
     public Optional<FileInfo> getFileInfo(String fileId) throws IOException {
-        Map<Path, Long> fileMap = getFileStorage().getFiles(Path.of(getStorageDir().toString(), fileId));
+        Map<Path, Long> fileMap = getFileStorage().getFiles(Path.of(getStorageDir(), fileId));
         if (fileMap.isEmpty()) {
             return Optional.empty();
         }

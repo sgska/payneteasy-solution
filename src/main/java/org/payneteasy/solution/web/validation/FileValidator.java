@@ -3,15 +3,13 @@ package org.payneteasy.solution.web.validation;
 import org.payneteasy.solution.context.ApplicationContext;
 import org.payneteasy.solution.web.configuration.ValidationConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class FileValidator {
 
     public static final String FILE_EXTENSION_ERROR_PATTERN = "Current file extension %s not accepted.";
     public static final String FILE_SIZE_ERROR_PATTERN = "Current file size %s Kb too big.";
+    public static final String FILE_ID_ERROR_PATTERN = "Current file id %s not valid.";
 
     private ValidationConfiguration configuration;
 
@@ -39,5 +37,14 @@ public class FileValidator {
         }
 
         return validationResult;
+    }
+
+    public List<String> validateFileId(String fileId) {
+        try {
+            UUID success = UUID.fromString(fileId);
+            return Collections.emptyList();
+        } catch (Exception e) {
+            return List.of(String.format(FILE_ID_ERROR_PATTERN, fileId));
+        }
     }
 }

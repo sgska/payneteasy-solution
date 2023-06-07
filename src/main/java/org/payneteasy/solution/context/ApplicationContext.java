@@ -3,32 +3,73 @@ package org.payneteasy.solution.context;
 import org.payneteasy.solution.context.configuration.ApplicationContextConfiguration;
 import org.payneteasy.solution.context.container.BeanContainer;
 import org.payneteasy.solution.context.loader.BeanLoaderFactory;
+import org.payneteasy.solution.context.type.ApplicationContextStatus;
 import org.payneteasy.solution.web.HttpServer;
+
+import static org.payneteasy.solution.context.type.ApplicationContextStatus.*;
 
 public class ApplicationContext {
 
-    private static final BeanContainer BEAN_CONTAINER = new BeanContainer();
-    private static final BeanLoaderFactory BEAN_LOADER_FACTORY = new BeanLoaderFactory();
+    private static BeanContainer beanContainer = new BeanContainer();
+    private static BeanLoaderFactory beanLoaderFactory = new BeanLoaderFactory();
+
+    private static ApplicationContextConfiguration contextConfiguration;
+    private static HttpServer httpServer;
+
+    private volatile static ApplicationContextStatus contextStatus = STOP;
 
 
     public static void start(ApplicationContextConfiguration configuration) {
-        configuration.getBeanConfigs()
-                .forEach(beanConfig ->
-                        BEAN_LOADER_FACTORY.getByType(beanConfig.getBeanLoadType())
-                                .load(BEAN_CONTAINER, beanConfig.getTClass()));
+        contextConfiguration = configuration;
 
-        if (configuration.isWebApp()) {
-            HttpServer server = getBean(HttpServer.class);
-            server.start();
+        contextStatus = INIT;
+        start();
+    }
+
+    public static synchronized void start() {
+        assert INIT.equals(contextStatus);
+
+        contextConfiguration.getBeanConfigs()
+                .forEach(beanConfig ->
+                        beanLoaderFactory.getByType(beanConfig.getBeanLoadType())
+                                .load(beanContainer, beanConfig.getTClass()));
+
+        System.out.println("Started application context.");
+
+        if (contextConfiguration.isWebApp()) {
+            httpServer = getBean(HttpServer.class);
+            httpServer.start();
         }
 
-        System.out.println("Started.");
+        contextStatus = RUNNING;
+    }
 
+    public static synchronized void stop() {
+        assert RUNNING.equals(contextStatus);
+
+        if (contextConfiguration.isWebApp()) {
+            httpServer.stop();
+        }
+        beanContainer = new BeanContainer();
+        beanLoaderFactory = new BeanLoaderFactory();
+
+        contextStatus = STOP;
     }
 
     public static <T> T getBean(Class<T> tClass) {
-        return BEAN_CONTAINER.getBean(tClass);
+        return beanContainer.getBean(tClass);
     }
 
 
+    public static BeanContainer getBeanContainer() {
+        return beanContainer;
+    }
+
+    public static ApplicationContextStatus getContextStatus() {
+        return contextStatus;
+    }
+
+    public static boolean isRunning() {
+        return RUNNING.equals(contextStatus);
+    }
 }
