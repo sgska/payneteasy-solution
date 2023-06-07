@@ -62,7 +62,6 @@ public abstract class AbstractIntegrationTest {
         appUrl = "http://localhost:" + ApplicationContext
                 .getBean(HttpServerConfiguration.class)
                 .getPort();
-        System.out.println("app url:" + appUrl);
     }
 
     protected void saveFile(String folder, String fileId, String filename, byte[] fileBytes) throws IOException {

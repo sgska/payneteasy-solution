@@ -31,7 +31,7 @@ public class DispatcherServlet extends HttpServlet {
     private static final int ARBITARY_SIZE = 1048;
 
 
-    private Map<String, HttpController> CONTROLLERS_MAP;
+    private final Map<String, HttpController> CONTROLLERS_MAP;
 
     public DispatcherServlet() {
         CONTROLLERS_MAP = InterfaceUtils.getSubclasses(HttpController.class).stream()
