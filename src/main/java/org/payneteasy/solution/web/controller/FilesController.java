@@ -13,7 +13,7 @@ public class FilesController extends AbstractFilesController {
 
             return new ResponseEntity(body);
         } catch (Exception e) {
-            return new ResponseEntity(500, e.toString());
+            return toErrorResponse(e);
         }
     }
 

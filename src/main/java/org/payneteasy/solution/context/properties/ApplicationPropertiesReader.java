@@ -14,7 +14,7 @@ import java.util.Properties;
 @UtilityClass
 public class ApplicationPropertiesReader {
 
-    public static String getProperty(String key) {
+    public static Optional<String> getPropertyOpt(String key) {
         var properties = new Properties();
         try (InputStream inputStream = ApplicationPropertiesReader.class
                 .getClassLoader()
@@ -25,9 +25,16 @@ public class ApplicationPropertiesReader {
             throw new ReadApplicationPropertyException("Error read property: " + key, e);
         }
 
-        return Optional.ofNullable(properties.getProperty(key))
-                .orElseThrow(() -> new MissingPropertyException(key));
+        return Optional.ofNullable(properties.getProperty(key));
     }
+
+    public static String getProperty(String key) {
+        var propertyOpt = getPropertyOpt(key);
+
+        return propertyOpt.orElseThrow(
+                () -> new MissingPropertyException(key));
+    }
+
 
     public static Integer getIntegerProperty(String key) {
         return Integer.valueOf(getProperty(key));

@@ -2,6 +2,7 @@ package org.payneteasy.solution;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.payneteasy.solution.configuration.ApplicationFileConfiguration;
 import org.payneteasy.solution.context.ApplicationContext;
 import org.payneteasy.solution.context.configuration.ApplicationContextConfiguration;
 import org.payneteasy.solution.context.type.BeanLoadType;
@@ -17,9 +18,13 @@ public class Application {
 
     public static void main(String[] args) {
         var configuration = new ApplicationContextConfiguration.Builder()
+                // init configurations
+                .addBean(HttpServerConfiguration.class)
+                .addBean(ApplicationFileConfiguration.class)
+                .addBean(ValidationConfiguration.class)
+
                 // init app beans
                 .addBean(BeanLoadType.SPI_LOADER, FileStorage.class)
-                .addBean(HttpServerConfiguration.class)
                 .addBean(FileService.class)
 
                 //init web app and server beans
@@ -27,7 +32,6 @@ public class Application {
                 .addBean(HttpServer.class)
                 .addBean(ObjectMapper.class)
                 .addBean(FileValidator.class)
-                .addBean(ValidationConfiguration.class)
 
                 .build();
 

@@ -41,6 +41,10 @@ public abstract class AbstractFilesController implements HttpController {
         }
     }
 
+    protected ResponseEntity toErrorResponse(Exception e) {
+        return new ResponseEntity(500, e.toString());
+    }
+
     @Override
     public ResponseEntity processGet(RequestEntity request) {
         return METHOD_NOT_ALLOWED_RESPONSE;

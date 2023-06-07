@@ -38,7 +38,7 @@ public class UploadController extends AbstractFilesController {
         try {
             getFileService().saveFile(generatedId, filename, fileBytes);
         } catch (Exception e) {
-            return new ResponseEntity(500, e.toString());
+            return toErrorResponse(e);
         }
 
         var fileInfo = new FileInfo(generatedId, fileSizeKb, filename);
