@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
 public class DispatcherServlet extends HttpServlet {
 
     private static final MultipartConfigElement MULTI_PART_CONFIG = new MultipartConfigElement("");
-    private static final int ARBITARY_SIZE = 1048;
 
 
     private final Map<String, HttpController> CONTROLLERS_MAP;
