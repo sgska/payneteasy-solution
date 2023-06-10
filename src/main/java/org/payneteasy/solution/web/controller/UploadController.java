@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class UploadController extends AbstractFilesController {
+public class UploadController extends AbstractHttpController {
 
     private FileValidator validator;
 

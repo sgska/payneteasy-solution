@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class DownloadController extends AbstractFilesController {
+public class DownloadController extends AbstractHttpController {
 
     private FileValidator validator;
     private FileValidator getValidator() {

@@ -10,7 +10,7 @@ import org.payneteasy.solution.web.entity.ResponseEntity;
 import java.io.IOException;
 import java.util.Objects;
 
-public abstract class AbstractFilesController implements HttpController {
+public abstract class AbstractHttpController implements HttpController {
 
     private static final ResponseEntity METHOD_NOT_ALLOWED_RESPONSE =
             new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED_405, "Method Not Allowed");

@@ -14,4 +14,19 @@ You can use console **mvn test** for test methods.
 - **org.payneteasy.solution.context.ApplicationContext** - simple realization for entry app point.
 - **org.payneteasy.solution.web.servlet.DispatcherServlet** - the main servlet that processes incoming requests and returns the result. it contains a mapping of controllers HttpController interface that can process requests
 - **org.payneteasy.solution.context.properties.ApplicationPropertiesReader** - clas used foe get property from application.properties by property key.
+
   ... and more.
+
+## UML diagram
+
+```seq
+Client->>DispatcherServlet: HttpServletRequest
+DispatcherServlet->>HttpController: RequestEntity
+
+
+Note right of HttpController: Implementation HttpController interface
+
+HttpController->>DispatcherServlet: ResponseEntity
+DispatcherServlet->>Client: HttpServletResponse
+```
+
